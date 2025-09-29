@@ -1,35 +1,125 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    ... <!-- Скопируйте весь блок <head> из index.html -->
-    <title>124124 - ооо</title>
-    <meta name="description" content="Узнайте контакты">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - TimoxaInput</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header>
-        ... <!-- Скопируйте весь блок <header> из index.html -->
+
+<body data-theme="dark">
+    <header class="site-header">
+        <a class="site-header__brand" href="index.html">TimoxaInput</a>
+        <nav class="site-nav">
+            <ul class="site-nav__list">
+                <li><a class="site-nav__link" href="index.html">Главная</a></li>
+                <li><a class="site-nav__link" href="about.html">О нас</a></li>
+                <li><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+                <li><button class="theme-toggle" id="themeToggle">🌙 Тёмная</button></li>
+                <li><button class="btn" id="openDialog">Написать нам</button></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
-        <!-- Простые "хлебные крошки" -->
-        <nav aria-label="Хлебные крошки">
-            <a href="index.html">Главная</a> →
-            <span>Контакты</span>
-        </nav>
+    <section class="hero">
+        <h1>Наши контакты</h1>
+        <p>Свяжитесь с нами для сотрудничества</p>
+    </section>
 
-        <h1>Контакты 000 </h1>
-        <section>
-            <h2>Наши контакты </h2>
-            <p>Телефон +79999999999</p>
+    <main>
+        <section class="section">
+            <h2>Контактная информация</h2>
+            <div class="contacts-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Телефон</h3>
+                    <p>+7 (999) 123-45-67</p>
+                    <a href="tel:+79991234567" class="contact-link">Позвонить</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <h3>Email</h3>
+                    <p>info@timoxainput.ru</p>
+                    <a href="mailto:info@timoxainput.ru" class="contact-link">Написать</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Telegram</h3>
+                    <p>@timoxainput</p>
+                    <a href="https://t.me/timoxainput" class="contact-link" target="_blank">Написать</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">🕒</div>
+                    <h3>Время работы</h3>
+                    <p>Пн-Пт: 12:00 - 23:00</p>
+                    <p>Сб-Вс: 12:00 - 02:00</p>
+                </div>
+            </div>
         </section>
-        <section>
-            <h2>Ныафы</h2>
-            <p>Текст о команде...</p>
+
+        <section class="section">
+            <div class="video-section">
+                <h2>Мы в социальных сетях</h2>
+                <p>Подписывайтесь на наши соцсети чтобы быть в курсе новостей</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">VK</a>
+                    <a href="#" class="social-link">YouTube</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Telegram</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Форма обратной связи</h2>
+            <p style="text-align: center; margin-bottom: 3rem;">Есть вопросы? Напишите нам и мы ответим в течение дня</p>
+            <div style="text-align: center;">
+                <button class="btn" id="openDialog2">Написать сообщение</button>
+            </div>
         </section>
     </main>
 
-    <footer>
-        ... <!-- Скопируйте весь блок <footer> из index.html -->
+    <footer class="site-footer">
+        <p>&copy; 2024 TimoxaInput. Все права защищены.</p>
+        <p>Телефон: +7 (999) 123-45-67 | Email: info@timoxainput.ru</p>
     </footer>
+
+    <dialog id="contactDialog" class="modal">
+        <h2>Обратная связь</h2>
+        <form id="contactForm" class="form" novalidate>
+            <label class="form__label" for="name">Имя *</label>
+            <input class="form__input" id="name" name="name" type="text" required minlength="2">
+            
+            <label class="form__label" for="phone">Телефон *</label>
+            <input class="form__input" id="phone" name="phone" type="tel" required 
+                   pattern="\+7\d{10}"
+                   placeholder="+79991234567"
+                   title="Формат: +79991234567"
+                   maxlength="12">
+            
+            <label class="form__label" for="email">E-mail *</label>
+            <input class="form__input" id="email" name="email" type="email" required>
+            
+            <label class="form__label" for="message">Сообщение *</label>
+            <textarea class="form__textarea" id="message" name="message" rows="4" required></textarea>
+            
+            <div class="form-actions">
+                <button type="button" class="btn btn--secondary" id="closeDialog">Закрыть</button>
+                <button type="submit" class="btn">Отправить</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="main.js"></script>
+    <script>
+        // Дополнительная кнопка для открытия модалки
+        document.getElementById('openDialog2')?.addEventListener('click', function() {
+            document.getElementById('contactDialog').showModal();
+        });
+    </script>
 </body>
 </html>

@@ -1,48 +1,145 @@
-const form = document.getElementById('contactForm');
+// Ждём полной загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    const dlg = document.getElementById('contactDialog');
+    const openBtn = document.getElementById('openDialog');
+    const closeBtn = document.getElementById('closeDialog');
+    const form = document.getElementById('contactForm');
 
-form?.addEventListener('submit', (e) => {
-    // 1) Сброс старых сообщений об ошибках
-    const fields = form.querySelectorAll('input, textarea, select');
-    fields.forEach(field => {
-        field.setCustomValidity('');
-        field.removeAttribute('aria-invalid');
-    });
+    console.log('Элементы:', { dlg, openBtn, closeBtn, form });
 
-    // 2) Проверка валидности
-    if (!form.checkValidity()) {
-        e.preventDefault();
-        
-        // Показываем ошибки для каждого поля
-        fields.forEach(field => {
-            if (!field.checkValidity()) {
-                field.setAttribute('aria-invalid', 'true');
-                
-                // Кастомные сообщения для разных типов ошибок
-                if (field.validity.valueMissing) {
-                    field.setCustomValidity('Это поле обязательно для заполнения');
-                } else if (field.validity.typeMismatch && field.type === 'email') {
-                    field.setCustomValidity('Введите корректный email, например: example@mail.ru');
-                } else if (field.validity.patternMismatch && field.type === 'tel') {
-                    field.setCustomValidity('Формат: +7 (900) 000-00-00');
-                } else if (field.validity.tooShort) {
-                    field.setCustomValidity(`Минимум ${field.minLength} символа`);
-                }
-            }
+    // Открытие модалки
+    if (openBtn && dlg) {
+        openBtn.addEventListener('click', function() {
+            console.log('Кнопка нажата!');
+            dlg.showModal();
         });
-        
-        // Показываем браузерные подсказки
-        form.reportValidity();
-        return;
     }
 
-    // 3) Если всё ок - закрываем модалку и сбрасываем форму
-    e.preventDefault();
-    alert('Форма успешно отправлена!'); // Можно убрать, если не нужно
-    dlg.close();
-    form.reset();
+    // Закрытие модалки
+    if (closeBtn && dlg) {
+        closeBtn.addEventListener('click', function() {
+            dlg.close();
+        });
+    }
+
+    // Обработка отправки формы
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Проверка валидности
+            if (!form.checkValidity()) {
+                const fields = form.querySelectorAll('input, textarea');
+                fields.forEach(field => {
+                    if (!field.checkValidity()) {
+                        field.setAttribute('aria-invalid', 'true');
+                    } else {
+                        field.removeAttribute('aria-invalid');
+                    }
+                });
+                
+                form.reportValidity();
+                return;
+            }
+            
+            // Если форма валидна
+            const success = document.createElement('div');
+            success.innerHTML = '✅ <strong>Успех!</strong> Форма отправлена!';
+            success.style.cssText = 'position:fixed; top:20px; right:20px; background:#4CAF50; color:white; padding:15px; border-radius:8px; z-index:10000;';
+            document.body.appendChild(success);
+            setTimeout(() => success.remove(), 3000);
+            dlg.close();
+            form.reset();
+            
+            // Сброс подсветки ошибок
+            const fields = form.querySelectorAll('input, textarea');
+            fields.forEach(field => {
+                field.removeAttribute('aria-invalid');
+            });
+        });
+    }
+
+    // ФИКС: Закрытие по клику на подложку, но не при выделении текста
+    if (dlg) {
+        let startX, startY;
+        
+        dlg.addEventListener('mousedown', function(e) {
+            // Запоминаем где начался клик
+            startX = e.clientX;
+            startY = e.clientY;
+        });
+
+        dlg.addEventListener('click', function(e) {
+            // Закрываем только если:
+            // 1. Кликнули именно на подложку (dlg)
+            // 2. Курсор не сдвинулся (значит не было выделения текста)
+            if (e.target === dlg && 
+                Math.abs(e.clientX - startX) < 5 && 
+                Math.abs(e.clientY - startY) < 5) {
+                dlg.close();
+            }
+        });
+    }
+
+    // Переключение темы
+    const themeToggle = document.getElementById('themeToggle');
     
-    // Сбрасываем атрибуты ошибок
-    fields.forEach(field => {
-        field.removeAttribute('aria-invalid');
-    });
+    // Проверяем сохраненную тему
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.body.setAttribute('data-theme', savedTheme);
+    updateThemeButton(savedTheme);
+    
+    // Обработчик клика
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        });
+    }
+    
+    function updateThemeButton(theme) {
+        if (themeToggle) {
+            themeToggle.textContent = theme === 'dark' ? '☀️ Светлая' : '🌙 Тёмная';
+        }
+    }
+
+    // Простая валидация телефона
+    const phone = document.getElementById('phone');
+    if (phone) {
+        phone.addEventListener('blur', function() {
+            const numbers = this.value.replace(/\D/g, '');
+            if (numbers.length === 11) {
+                this.removeAttribute('aria-invalid');
+            } else if (this.value && numbers.length !== 11) {
+                this.setAttribute('aria-invalid', 'true');
+            }
+        });
+    }
 });
+// Простая валидация телефона
+// Простая валидация телефона
+const phone = document.getElementById('phone');
+if (phone) {
+    phone.addEventListener('input', function() {
+        // Оставляем только цифры и +
+        this.value = this.value.replace(/[^\d+]/g, '');
+        
+        // Ограничиваем длину
+        if (this.value.length > 12) {
+            this.value = this.value.substring(0, 12);
+        }
+    });
+
+    phone.addEventListener('blur', function() {
+        const numbers = this.value.replace(/\D/g, '');
+        if (numbers.length === 11) {
+            this.removeAttribute('aria-invalid');
+        } else if (this.value && numbers.length !== 11) {
+            this.setAttribute('aria-invalid', 'true');
+        }
+    });
+}

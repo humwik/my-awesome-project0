@@ -1,35 +1,140 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    ... <!-- Скопируйте весь блок <head> из index.html -->
-    <title>О нас - Название вашего сайта</title>
-    <meta name="description" content="Узнайте больше о нашей компании и истории">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - TimoxaInput</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    
 </head>
-<body>
-    <header>
-        ... <!-- Скопируйте весь блок <header> из index.html -->
+<body data-theme="dark">
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <a class="site-header__brand" href="index.html">TimoxaInput</a>
+        <nav class="site-nav">
+            <ul class="site-nav__list">
+                 <li><a class="site-nav__link" href="index.html">Главная</a></li>
+                <li><a class="site-nav__link" href="about.html">О нас</a></li>
+                <li><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle">
+                        <span class="theme-icon" id="themeIcon">🌙</span>
+                        Тема
+                    </button>
+                </li>
+                <li><button class="btn" id="openDialog">Написать нам</button></li>
+            </ul>
+        </nav>
     </header>
 
+    <!-- Основное содержимое -->
     <main>
-        <!-- Простые "хлебные крошки" -->
-        <nav aria-label="Хлебные крошки">
-            <a href="index.html">Главная</a> →
-            <span>О нас</span>
-        </nav>
-
-        <h1>О нашей компании</h1>
-        <section>
-            <h2>Наша история</h2>
-            <p>Текст о том, как все начиналось...</p>
+        <!-- Герой секция -->
+        <section class="about-hero">
+            <h1>Мы - TimoxaInput</h1>
+            <p>Три брата, создающие будущее музыкальной индустрии</p>
         </section>
-        <section>
-            <h2>Наша команда</h2>
-            <p>Текст о команде...</p>
+
+        <!-- Секция основателей -->
+        <section class="founders-section">
+            <h2 class="founders-title">Наши основатели</h2>
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <img src="images/timoxa.jpg" alt="Саныч" class="founder-photo">
+                    <h3 class="founder-name">Саныч</h3>
+                    <p class="founder-role">Основатель & CEO</p>
+                    <p class="founder-bio">Старший брат и стратег. Более 10 лет опыта в музыкальной индустрии. Создал успешные стратегии для 50+ артистов.</p>
+                </div>
+                
+                <div class="founder-card">
+                    <img src="images/stepa.jpg" alt="Максимыч" class="founder-photo">
+                    <h3 class="founder-name">Максимыч</h3>
+                    <p class="founder-role">Главный продюсер</p>
+                    <p class="founder-bio">Средний брат и творческий гений. Специалист по артист-развитию с фокусом на создании уникального звучания.</p>
+                </div>
+                
+                <div class="founder-card">
+                    <img src="images/arslan.jpg" alt="Арсланыч" class="founder-photo">
+                    <h3 class="founder-name">Арсланыч</h3>
+                    <p class="founder-role">Директор по маркетингу</p>
+                    <p class="founder-bio">Младший брат и digital-эксперт. Увеличил аудиторию артистов в 3-5 раз благодаря инновационным стратегиям.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция истории -->
+        <section class="about-story">
+            <div class="story-content">
+                <h2 class="story-title">Наша история</h2>
+                <p class="story-text">
+                    Всё началось в 2020 году, когда три брата объединили свои силы для создания компании, 
+                    которая изменит подход к продвижению артистов. Мы верим, что семейные ценности и братская 
+                    поддержка - это наш главный секрет успеха.
+                </p>
+                <p class="story-text">
+                    Каждый из нас привнес свои уникальные навыки: стратегическое видение, творческий подход 
+                    и современные маркетинговые технологии. Вместе мы создали команду, которая понимает 
+                    артистов с полуслова и знает, как превратить талант в успех.
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Артистов</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">100M+</div>
+                        <div class="stat-label">Прослушиваний</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Года опыта</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Стран</div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer>
-        ... <!-- Скопируйте весь блок <footer> из index.html -->
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <p>&copy; 2024 TimoxaInput. Все права защищены.</p>
+        <p>Телефон: +7 (123) 456-78-90</p>
     </footer>
+
+    <!-- Модальное окно -->
+   <dialog id="contactDialog" class="modal">
+    <h2>Обратная связь</h2>
+    <form id="contactForm" class="form" novalidate>
+        <label class="form__label" for="name">Имя *</label>
+        <input class="form__input" id="name" name="name" type="text" required minlength="2">
+        
+    <label class="form__label" for="phone">Телефон *</label>
+<input class="form__input" id="phone" name="phone" type="tel" required 
+       pattern="\+7\d{10}"
+       placeholder="+79991234567"
+       title="Формат: +79991234567"
+       maxlength="12">
+        
+        <label class="form__label" for="email">E-mail *</label>
+        <input class="form__input" id="email" name="email" type="email" required>
+        
+        <label class="form__label" for="message">Сообщение *</label>
+        <textarea class="form__textarea" id="message" name="message" rows="4" required></textarea>
+        
+        <div class="form-actions">
+            <button type="button" class="btn btn--secondary" id="closeDialog">Закрыть</button>
+            <button type="submit" class="btn">Отправить</button>
+        </div>
+    </form>
+</dialog>
+        <script src="main.js"></script>
 </body>
 </html>
