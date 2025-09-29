@@ -1,0 +1,152 @@
+/* БАЗА: читаемость и предсказуемость размеров */
+* { 
+    box-sizing: border-box; 
+}
+
+html, body { 
+    margin: 0; 
+    padding: 0; 
+}
+
+body { 
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; 
+    line-height: 1.5; 
+    padding: 20px;
+}
+
+/* Стили для твоего существующего контента */
+header {
+    background: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Стили для кнопки открытия модалки */
+#openDialog {
+    background: #0a84ff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+#openDialog:hover {
+    background: #0066cc;
+}
+
+/* Стили модального окна */
+dialog { 
+    padding: 1.25rem; 
+    border: none; 
+    border-radius: 12px; 
+    width: 90%;
+    max-width: 500px;
+}
+
+dialog::backdrop { 
+    background: rgba(0,0,0,.5); 
+}
+
+/* Стили формы */
+label { 
+    display: block; 
+    margin: 0.5rem 0 0.25rem; 
+    font-weight: 500;
+}
+
+input, select, textarea, button {
+    width: 100%;
+    max-width: 480px;
+    padding: .5rem .75rem;
+    border: 1px solid #c8c8c8;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 16px;
+}
+
+/* Кнопки формы */
+button, [type="submit"] {
+    background: #0a84ff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+/* Состояния: клавиатура/мышь/ошибки */
+:where(input, select, textarea, button):focus-visible {
+    outline: 2px solid #0a84ff; 
+    outline-offset: 2px;
+}
+
+button:hover { 
+    filter: brightness(0.95); 
+}
+
+:disabled, [aria-disabled="true"] { 
+    opacity: .6; 
+    cursor: not-allowed; 
+}
+
+/* Подсветка ошибочных полей */
+[aria-invalid="true"] { 
+    border-color: #b00020; 
+    background-color: #fff5f5;
+}
+
+/* Блок кнопок в форме */
+.form-actions { 
+    display: flex; 
+    gap: .5rem; 
+    margin-top: 1rem; 
+}
+
+.form-actions button {
+    flex: 1;
+}
+
+/* Стили для маленького текста (подсказки) */
+small {
+    color: #666;
+    font-size: 0.875rem;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+/* Заголовок в модалке */
+#dialogTitle {
+    margin-top: 0;
+    color: #333;
+}
+
+/* Футер */
+footer {
+    margin-top: 3rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    text-align: center;
+    border-radius: 8px;
+}
